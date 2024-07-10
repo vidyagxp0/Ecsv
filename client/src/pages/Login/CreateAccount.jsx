@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function CreateAccount() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ export default function Login() {
         max-w-md w-full"
       >
         <img src="./vidyaGxp_logo.png" alt="" />
-        <h3 className="text-2xl font-bold text-gray-800 mb-4">Login</h3>
+        <h3 className="text-2xl font-bold text-gray-800 mb-4">Create New Account</h3>
         <form onSubmit={handleSubmit}>
           <label
             htmlFor="email"
@@ -48,31 +50,65 @@ export default function Login() {
           <input
             type="password"
             id="password"
+            value={confirmpassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="bg-gray-50 border border-gray-300 text-gray-900
+            sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          />
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm
+            font-medium text-gray-900 mt-4"
+          >
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900
             sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
+          <label
+            htmlFor="password"
+            className="block mb-2 text-sm
+            font-medium text-gray-900 mt-4"
+          >
+            Admin Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
+            className="bg-gray-50 border border-gray-300 text-gray-900
+            sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          />
           <button
-            onClick={() => navigate("/dashboard")}
             type="submit"
             className="w-full mt-6 px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
           >
-            Login
+            Create Account
           </button>
-          <button
-            onClick={() => navigate("/create-account")}
+          {/* <button
+            onClick={() => navigate("/crea")}
             type="button"
             className="w-full mt-6 px-4 py-2 text-blue-500 bg-white border border-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
           >
             Create Account
-          </button>
-          <p
-            className="text-sm text-gray-600 mt-4 cursor-pointer"
-            onClick={() => navigate("/forgotpassword")}
-          >
-            Forgot password?
-          </p>
+          </button> */}
+          <div className="flex items-center justify-between">
+            <p
+              className="text-sm text-gray-600 mt-4 cursor-pointer"
+              onClick={() => navigate("/forgotpassword")}
+            >
+              Forgot password?
+            </p>
+            <p className="text-sm text-gray-600 mt-4 cursor-pointer" onClick={() => navigate("/")}>
+              Go back to Login
+            </p>
+          </div>
         </form>
       </div>
     </div>
