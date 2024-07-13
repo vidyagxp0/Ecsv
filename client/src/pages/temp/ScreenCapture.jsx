@@ -33,7 +33,7 @@ const ScreenCapture = () => {
     <div>
       <button
         onClick={captureScreen}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full px-7"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full px-7"
       >
         Capture Screen
       </button>

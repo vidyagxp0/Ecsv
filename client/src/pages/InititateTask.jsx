@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { IoSendOutline } from "react-icons/io5";
 import { FcApprove } from "react-icons/fc";
 import ScreenCapture from "./temp/ScreenCapture";
+import ProgressBar from "../components/ProgressBar";
 
 export default function InititateTask() {
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -95,7 +96,7 @@ export default function InititateTask() {
                   )}
 
                   <div>
-                    < ScreenCapture />
+                    <ScreenCapture />
                   </div>
                   <label htmlFor="" className="mr-2 w-1/4">
                     Choose Reviewer
