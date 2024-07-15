@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/ProgressBar";
 import { useState } from "react";
 import ESignatureModal from "../../components/ESignatureModal";
+import TinyEditor from "../../components/TinyEditor";
 
 export default function ExecuteTask() {
   const today = new Date().toLocaleDateString();
@@ -22,11 +23,11 @@ export default function ExecuteTask() {
       <Header />
       <ProgressBar stage={3} />
       <div>
-        <div className="px-16  py-12 pt-2 bg-gray-300 min-h-screen">
+        <div className="px-16  py-12 pt-2 bg-gray-300 min-h-screen ">
           <h6 className="text-2xl pt-12 px-16 font-bold bg-white rounded-t-lg  text-orange-600">
             Execute Task
           </h6>
-          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300  flex gap-12 flex-wrap  justify-between">
+          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300  flex  flex-wrap  justify-between  gap-6 ">
             <div className="w-5/12">
               <label htmlFor="" className="mr-2 w-1/4">
                 Initiator Name
@@ -157,19 +158,28 @@ export default function ExecuteTask() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>
             </div>
-            <div className="w-5/12">
+            <div className="w-full">
+              <ScreenCapture />
+            </div>
+
+            <div className="w-full  shadow-2xl p-5 rounded-lg">
+              <label htmlFor="" className="mb-11">
+                Edit And Upload Document
+              </label>
+              {/* <TinyMCE /> */}
+              <TinyEditor />
+            </div>
+
+            <div className="w-full flex justify-center">
               <button
                 type="submit"
-                className="bg-green-800 text-white  px-4 py-2 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center  w-full justify-center"
-                // onClick={() => navigate("/approve-task")}
+                className="bg-green-800 text-white  px-6 py-4 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center  w-1/4 justify-center"
+                // onClick={() => sendForReview()}
                 onClick={handleOpen}
               >
                 <IoSendOutline className="mr-2 h-4 w-4" />
                 Send for Approval
               </button>
-            </div>
-            <div className="w-5/12">
-              <ScreenCapture />
             </div>
           </div>
         </div>

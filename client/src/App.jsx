@@ -15,6 +15,11 @@ import ReviewTask from "./pages/TaskForm/ReviewTask";
 import DraftTask from "./pages/TaskForm/DraftTask";
 import ExecuteTask from "./pages/TaskForm/ExecuteTask";
 import ApproveTask from "./pages/TaskForm/ApproveTask";
+import FileEditor from "./pages/temp/JoditEditor";
+import FileEditor2 from "./pages/temp/AypryseEditor";
+import Tiptap from "./pages/temp/Tiptap";
+import TinyMCE from "./pages/temp/TinyMCE";
+import TinyDemo from "./pages/temp/TinyDemo";
 function App() {
   return (
     <>
@@ -35,6 +40,11 @@ function App() {
           <Route exact path="/ss" element={<Screenshot />} />
           <Route exact path="/ssc" element={<ScreenCapture />} />
           <Route exact path="/word" element={<WordUploader />} />
+          <Route exact path="/file" element={<FileEditor />} />
+          <Route exact path="/file2" element={<FileEditor2 />} />
+          <Route exact path="/tiptap" element={<Tiptap />} />
+          <Route exact path="/tiny" element={<TinyMCE />} />
+          <Route exact path="/tinydemo" element={<TinyDemo />} />
         </Routes>
       </Router>
     </>

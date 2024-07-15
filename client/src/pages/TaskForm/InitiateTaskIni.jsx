@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/ProgressBar";
 import { useState } from "react";
 import ESignatureModal from "../../components/ESignatureModal";
+import TinyMCE from "../temp/TinyMCE";
+import TinyEditor from "../../components/TinyEditor";
 
 export default function InitiateTaskIni() {
   const today = new Date().toLocaleDateString();
@@ -30,7 +32,7 @@ export default function InitiateTaskIni() {
           <h6 className="text-2xl pt-12 px-16 font-bold bg-white rounded-t-lg  text-orange-600">
             Initiate New Task
           </h6>
-          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300  flex gap-12 flex-wrap  justify-between">
+          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300  flex gap-4 flex-wrap  justify-between">
             <div className="w-5/12">
               <label htmlFor="" className="mr-2 w-1/4">
                 Initiator Name
@@ -79,6 +81,7 @@ export default function InitiateTaskIni() {
                 </option>
               </select>
             </div>
+
             <div className="w-5/12">
               <label htmlFor="" className="mr-2 w-1/4">
                 Choose Approver
@@ -106,7 +109,7 @@ export default function InitiateTaskIni() {
             </div>
             <div className="w-5/12">
               <label htmlFor="" className="mr-2 w-1/4">
-                Choose Executor
+                Choose Drafter
               </label>
               <select className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0">
                 <option key={0} value="Drafter 1">
@@ -154,7 +157,7 @@ export default function InitiateTaskIni() {
                 </option>
               </select>
             </div>
-            <div className="w-5/12 ">
+            {/* <div className="w-5/12 ">
               <label className="w-1/2 mr-2">Upload Document</label>
               <input
                 type="file"
@@ -163,7 +166,8 @@ export default function InitiateTaskIni() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2 mt-0"
                 // onChange={handleFileChange}
               />
-            </div>
+              
+            </div> */}
             {/* <div className="w-5/12"> */}
             {/* {pdfUrl && (
                 <iframe src={pdfUrl} width="100%" height="300px" style={{ border: "none" }} />
@@ -176,6 +180,8 @@ export default function InitiateTaskIni() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
+            <div className="w-5/12"></div>
+
             <div className="w-5/12">
               <label htmlFor="">Document Description</label>
               <textarea
@@ -190,19 +196,29 @@ export default function InitiateTaskIni() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>
             </div>
-            <div className="w-5/12">
+
+            <div className="w-full">
+              <ScreenCapture />
+            </div>
+
+            <div className="w-full ">
+              <label htmlFor="" className="mb-11">
+                Edit And Upload Document
+              </label>
+              {/* <TinyMCE /> */}
+              <TinyEditor />
+            </div>
+
+            <div className="w-full flex justify-center">
               <button
                 type="submit"
-                className="bg-green-800 text-white  px-4 py-2 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center  w-full justify-center"
+                className="bg-green-800 text-white  px-6 py-4 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center  w-1/4 justify-center"
                 // onClick={() => sendForReview()}
                 onClick={handleOpen}
               >
                 <IoSendOutline className="mr-2 h-4 w-4" />
                 Send for Review
               </button>
-            </div>
-            <div className="w-5/12">
-              <ScreenCapture />
             </div>
           </div>
         </div>
@@ -211,3 +227,256 @@ export default function InitiateTaskIni() {
     </>
   );
 }
+
+// import { IoSendOutline } from "react-icons/io5";
+// import Header from "../../components/Header";
+// import ScreenCapture from "../temp/ScreenCapture";
+// import { useNavigate } from "react-router-dom";
+// import ProgressBar from "../../components/ProgressBar";
+// import { useState } from "react";
+// import ESignatureModal from "../../components/ESignatureModal";
+// import { useDispatch, useSelector } from "react-redux";
+// import { updateForm } from "../../redux/formSlice";
+// import { FaWindowClose } from "react-icons/fa";
+
+// export default function InitiateTaskIni() {
+//   const navigate = useNavigate();
+//   const [stage, setStage] = useState(0);
+//   const [open, setOpen] = useState(false);
+
+//   const handleOpen = () => setOpen(true);
+//   const handleClose = () => setOpen(false);
+//   const handleSubmit = () => {
+//     setStage(1);
+//     navigate("/review-task");
+//   };
+
+//   const dispatch = useDispatch();
+//   const formState = useSelector((state) => state.form);
+
+//   const [localState, setLocalState] = useState({ ...formState });
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setLocalState((prevState) => ({ ...prevState, [name]: value }));
+//   };
+
+//   const handleSave = () => {
+//     dispatch(updateForm(localState));
+//   };
+
+//   return (
+//     <>
+//       <Header />
+//       <ProgressBar stage={stage} />
+
+//       <div>
+//         <div className="px-16 py-12 pt-2 bg-gray-300 min-h-screen">
+//           <h6 className="text-2xl pt-12 px-16 font-bold bg-white rounded-t-lg text-orange-600">
+//             Initiate New Task
+//           </h6>
+//           <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300 flex gap-12 flex-wrap justify-between">
+//             <div className="w-5/12">
+//               <label htmlFor="initiatorName" className="mr-2 w-1/4">
+//                 Initiator Name
+//               </label>
+//               <input
+//                 disabled
+//                 type="text"
+//                 name="initiatorName"
+//                 value={localState.initiatorName}
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//               />
+//             </div>
+//             <div className="w-5/12">
+//               <label htmlFor="initiationDate" className="mr-2 w-1/4">
+//                 Initiation Date
+//               </label>
+//               <input
+//                 disabled
+//                 type="text"
+//                 name="initiationDate"
+//                 value={localState.initiationDate}
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//               />
+//             </div>
+
+//             <div className="w-5/12">
+//               <label htmlFor="reviewer" className="mr-2 w-1/4">
+//                 Choose Reviewer
+//               </label>
+//               <select
+//                 name="reviewer"
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//                 value={localState.reviewer}
+//                 onChange={handleChange}
+//               >
+//                 <option value="">Select</option>
+//                 <option value="Reviewer 1">Reviewer 1</option>
+//                 <option value="Reviewer 2">Reviewer 2</option>
+//                 <option value="Reviewer 3">Reviewer 3</option>
+//                 <option value="Reviewer 4">Reviewer 4</option>
+//                 <option value="Reviewer 5">Reviewer 5</option>
+//               </select>
+//             </div>
+//             <div className="w-5/12">
+//               <label htmlFor="approver" className="mr-2 w-1/4">
+//                 Choose Approver
+//               </label>
+//               <select
+//                 name="approver"
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//                 value={localState.approver}
+//                 onChange={handleChange}
+//               >
+//                 <option value="">Select</option>
+//                 <option value="Approver 1">Approver 1</option>
+//                 <option value="Approver 2">Approver 2</option>
+//                 <option value="Approver 3">Approver 3</option>
+//                 <option value="Approver 4">Approver 4</option>
+//                 <option value="Approver 5">Approver 5</option>
+//               </select>
+//             </div>
+//             <div className="w-5/12">
+//               <label htmlFor="drafter" className="mr-2 w-1/4">
+//                 Choose Drafter
+//               </label>
+//               <select
+//                 name="drafter"
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//                 value={localState.drafter}
+//                 onChange={handleChange}
+//               >
+//                 <option value="">Select</option>
+//                 <option value="Drafter 1">Drafter 1</option>
+//                 <option value="Drafter 2">Drafter 2</option>
+//                 <option value="Drafter 3">Drafter 3</option>
+//                 <option value="Drafter 4">Drafter 4</option>
+//                 <option value="Drafter 5">Drafter 5</option>
+//               </select>
+//             </div>
+//             <div className="w-5/12">
+//               <label htmlFor="executor" className="mr-2 w-1/4">
+//                 Choose Executor
+//               </label>
+//               <select
+//                 name="executor"
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//                 value={localState.executor}
+//                 onChange={handleChange}
+//               >
+//                 <option value="">Select</option>
+//                 <option value="Executor 1">Executor 1</option>
+//                 <option value="Executor 2">Executor 2</option>
+//                 <option value="Executor 3">Executor 3</option>
+//                 <option value="Executor 4">Executor 4</option>
+//                 <option value="Executor 5">Executor 5</option>
+//               </select>
+//             </div>
+//             <div className="w-5/12">
+//               <label htmlFor="documentName" className="mr-2 w-1/4">
+//                 Document Name
+//               </label>
+//               <input
+//                 type="text"
+//                 name="documentName"
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//                 value={localState.documentName}
+//                 onChange={handleChange}
+//               />
+//             </div>
+//             <div className="w-5/12 ">
+//               <label className="w-1/2 mr-2">Upload Document</label>
+//               <input
+//                 type="file"
+//                 accept=".pdf"
+//                 //   multiple
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2 mt-0"
+//                 // onChange={handleFileChange}
+//               />
+//             </div>
+//             <div className="w-5/12">
+//               <label htmlFor="documentDescription" className="mr-2 w-1/4">
+//                 Document Description
+//               </label>
+//               <textarea
+//                 name="documentDescription"
+//                 rows="4"
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//                 value={localState.documentDescription}
+//                 onChange={handleChange}
+//               ></textarea>
+//             </div>
+//             <div className="w-5/12">
+//               <label htmlFor="shortDescription" className="mr-2 w-1/4">
+//                 Short Description
+//               </label>
+//               <textarea
+//                 name="shortDescription"
+//                 rows="4"
+//                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+//                 value={localState.shortDescription}
+//                 onChange={handleChange}
+//               ></textarea>
+//             </div>
+
+//             <div className="w-5/12">
+//               <button
+//                 type="submit"
+//                 className="bg-green-800 text-white px-4 py-2 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center w-full justify-center"
+//                 onClick={handleOpen}
+//               >
+//                 <IoSendOutline className="mr-2 h-4 w-4" />
+//                 Send for Review
+//               </button>
+//             </div>
+//             <div className="w-5/12">
+//               <ScreenCapture />
+//             </div>
+//           </div>
+//           <div className="flex items-center justify-end mt-10 gap-5">
+//             <button
+//               type="button"
+//               className="bg-white border-2 border-green-800 px-4 py-2 rounded-lg focus:outline-none hover:bg-green-100 transition duration-150 ease-in-out flex items-center justify-center"
+//               onClick={handleSave}
+//             >
+//               <svg
+//                 xmlns="http://www.w3.org/2000/svg"
+//                 className="h-6 w-6 mr-2"
+//                 fill="none"
+//                 viewBox="0 0 24 24"
+//                 stroke="currentColor"
+//               >
+//                 <path
+//                   strokeLinecap="round"
+//                   strokeLinejoin="round"
+//                   strokeWidth={2}
+//                   d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+//                 />
+//               </svg>
+//               Save
+//             </button>
+//             <button
+//               type="button"
+//               className="bg-green-800 text-white px-4 py-2 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center justify-center"
+//               onClick={() => {
+//                 navigate("/dashboard");
+//               }}
+//             >
+//               <FaWindowClose className="bg-green-800  h-6 w-6 mr-2" />
+//               Exit
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//       <ESignatureModal open={open} handleClose={handleClose} submitAction={handleSubmit} />
+//       {/* <button
+//           type="button"
+//           className="bg-green-800 w-24 text-white px-4 py-2 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center  justify-center"
+//           onClick={handleSave}
+//         >
+//           Save
+//         </button> */}
+//     </>
+//   );
+// }
