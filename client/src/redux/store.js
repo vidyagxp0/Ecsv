@@ -1,10 +1,8 @@
-// src/redux/store.js
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-// import counterReducer from "./counterSlice";
 import formReducer from "./formSlice";
 
 const persistConfig = {

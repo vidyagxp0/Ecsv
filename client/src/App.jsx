@@ -20,6 +20,12 @@ import FileEditor2 from "./pages/temp/AypryseEditor";
 import Tiptap from "./pages/temp/Tiptap";
 import TinyMCE from "./pages/temp/TinyMCE";
 import TinyDemo from "./pages/temp/TinyDemo";
+import EditView from "./pages/TaskFormPanel/InitiatePanel";
+import InitiatePanel from "./pages/TaskFormPanel/InitiatePanel";
+import ReviewPanel from "./pages/TaskFormPanel/ReviewPanel";
+import DraftPanel from "./pages/TaskFormPanel/DraftPanel";
+import ExecutePanel from "./pages/TaskFormPanel/ExecutePanel";
+import ApprovePanel from "./pages/TaskFormPanel/ApprovePanel";
 function App() {
   return (
     <>
@@ -35,6 +41,13 @@ function App() {
           <Route exact path="/draft-task" element={<DraftTask />} />
           <Route exact path="/execute-task" element={<ExecuteTask />} />
           <Route exact path="/approve-task" element={<ApproveTask />} />
+          <Route path="/edit/:id" element={<EditView />} />
+          <Route path="/initiate/:id" element={<InitiatePanel />} />
+          <Route path="/review/:id" element={<ReviewPanel />} />
+          <Route path="/draft/:id" element={<DraftPanel />} />
+          <Route path="/execute/:id" element={<ExecutePanel />} />
+          <Route path="/approve/:id" element={<ApprovePanel />} />
+
           {/* Temporary */}
           <Route exact path="/pdf" element={<PdfUploader />} />
           <Route exact path="/ss" element={<Screenshot />} />

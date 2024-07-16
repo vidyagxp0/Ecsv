@@ -23,7 +23,6 @@
     "docx": "^8.5.0",
     "docxtemplater": "^3.48.0",
     "file-saver": "^2.0.5",
-    "html-docx-js": "^0.3.1",
     "html-to-pdfmake": "^2.5.11",
     "html2canvas": "^1.4.1",
     "jodit-react": "^4.1.2",

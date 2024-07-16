@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoSendOutline } from "react-icons/io5";
 import { useParams, useNavigate } from "react-router-dom";
@@ -7,47 +7,40 @@ import ScreenCapture from "../temp/ScreenCapture";
 import ProgressBar from "../../components/ProgressBar";
 import ESignatureModal from "../../components/ESignatureModal";
 import TinyEditor from "../../components/TinyEditor";
-import { addForm, updateForm } from "../../redux/formSlice";
+import { updateForm } from "../../redux/formSlice";
 
-export default function InitiatePanel() {
+export default function DraftPanel() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const forms = useSelector((state) => state.form.forms);
 
   const formToEdit = forms.find((form) => form.id === parseInt(id));
-
   const today = new Date().toLocaleDateString();
-  const [stage, setStage] = useState(0);
+
   const [formData, setFormData] = useState(
     formToEdit || {
-      id: Date.now(),
       initiatorName: "Gaurav Meena",
       initiationDate: today,
-      reviewer: "",
-      approver: "",
-      drafter: "",
-      executor: "",
-      documentName: "",
-      documentDescription: "",
-      shortDescription: "",
+      reviewer: "Pankaj Jat",
+      reviewDate: today,
+      drafterName: "My Jat",
+      draftDate: today,
+      draftAdditionalDocumentName: "",
+      draftAdditionalDocumentDescription: "",
+      drafterComments: "",
+      // Add other fields here as needed
     }
   );
 
-  //modal
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleSubmit = () => {
-    if (formToEdit) {
-      dispatch(updateForm(formData));
-    } else {
-      dispatch(addForm(formData));
-    }
-    setStage(1);
-    navigate(`/review/${formData.id}`);
+    dispatch(updateForm(formData));
+    navigate("/execute-task");
   };
 
   const handleChange = (e) => {
@@ -60,13 +53,14 @@ export default function InitiatePanel() {
   return (
     <>
       <Header />
-      <ProgressBar stage={stage} />
+      <ProgressBar stage={2} />
+
       <div>
         <div className="px-16 py-12 pt-2 bg-gray-300 min-h-screen">
           <h6 className="text-2xl pt-12 px-16 font-bold bg-white rounded-t-lg text-orange-600">
-            {formToEdit ? "Edit Task" : "Initiate New Task"}
+            Draft Task
           </h6>
-          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300 flex gap-4 flex-wrap justify-between">
+          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300 flex gap-6 flex-wrap justify-between">
             <div className="w-5/12">
               <label htmlFor="initiatorName" className="mr-2 w-1/4">
                 Initiator Name
@@ -78,6 +72,7 @@ export default function InitiatePanel() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
+
             <div className="w-5/12">
               <label htmlFor="initiationDate" className="mr-2 w-1/4">
                 Initiation Date
@@ -91,170 +86,101 @@ export default function InitiatePanel() {
             </div>
             <div className="w-5/12">
               <label htmlFor="reviewer" className="mr-2 w-1/4">
-                Choose Reviewer
+                Reviewer Name
               </label>
-              <select
-                name="reviewer"
+              <input
+                disabled
+                type="text"
                 value={formData.reviewer}
-                onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
-              >
-                <option key={0} value="">
-                  Select
-                </option>
-                <option key={1} value="Reviewer 1">
-                  Reviewer 1
-                </option>
-                <option key={2} value="Reviewer 2">
-                  Reviewer 2
-                </option>
-                <option key={3} value="Reviewer 3">
-                  Reviewer 3
-                </option>
-                <option key={4} value="Reviewer 4">
-                  Reviewer 4
-                </option>
-                <option key={5} value="Reviewer 5">
-                  Reviewer 5
-                </option>
-              </select>
+              />
             </div>
+
             <div className="w-5/12">
-              <label htmlFor="approver" className="mr-2 w-1/4">
-                Choose Approver
+              <label htmlFor="reviewDate" className="mr-2 w-1/4">
+                Review Date
               </label>
-              <select
-                name="approver"
-                value={formData.approver}
-                onChange={handleChange}
+              <input
+                disabled
+                type="text"
+                value={formData.reviewDate}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
-              >
-                <option key={0} value="">
-                  Select
-                </option>
-                <option key={1} value="Approver 1">
-                  Approver 1
-                </option>
-                <option key={2} value="Approver 2">
-                  Approver 2
-                </option>
-                <option key={3} value="Approver 3">
-                  Approver 3
-                </option>
-                <option key={4} value="Approver 4">
-                  Approver 4
-                </option>
-                <option key={5} value="Approver 5">
-                  Approver 5
-                </option>
-              </select>
+              />
             </div>
             <div className="w-5/12">
               <label htmlFor="drafter" className="mr-2 w-1/4">
-                Choose Drafter
-              </label>
-              <select
-                name="drafter"
-                value={formData.drafter}
-                onChange={handleChange}
-                className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
-              >
-                <option key={0} value="">
-                  Select
-                </option>
-                <option key={1} value="Drafter 1">
-                  Drafter 1
-                </option>
-                <option key={2} value="Drafter 2">
-                  Drafter 2
-                </option>
-                <option key={3} value="Drafter 3">
-                  Drafter 3
-                </option>
-                <option key={4} value="Drafter 4">
-                  Drafter 4
-                </option>
-                <option key={5} value="Drafter 5">
-                  Drafter 5
-                </option>
-              </select>
-            </div>
-            <div className="w-5/12">
-              <label htmlFor="executor" className="mr-2 w-1/4">
-                Choose Executor
-              </label>
-              <select
-                name="executor"
-                value={formData.executor}
-                onChange={handleChange}
-                className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
-              >
-                <option key={0} value="">
-                  Select
-                </option>
-                <option key={1} value="Executor 1">
-                  Executor 1
-                </option>
-                <option key={2} value="Executor 2">
-                  Executor 2
-                </option>
-                <option key={3} value="Executor 3">
-                  Executor 3
-                </option>
-                <option key={4} value="Executor 4">
-                  Executor 4
-                </option>
-                <option key={5} value="Executor 5">
-                  Executor 5
-                </option>
-              </select>
-            </div>
-            <div className="w-5/12">
-              <label htmlFor="documentName" className="mr-2 w-1/4">
-                Document Name
+                Drafter Name
               </label>
               <input
-                name="documentName"
+                disabled
                 type="text"
-                value={formData.documentName}
+                value={formData.drafter}
+                className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+              />
+            </div>
+
+            <div className="w-5/12">
+              <label htmlFor="draftDate" className="mr-2 w-1/4">
+                Draft Date
+              </label>
+              <input
+                disabled
+                type="text"
+                value={formData.draftDate}
+                className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+              />
+            </div>
+
+            <div className="w-5/12">
+              <label htmlFor="draftAdditionalDocumentName" className="mr-2 w-1/4">
+                Additional Document Name
+              </label>
+              <input
+                name="draftAdditionalDocumentName"
+                type="text"
+                value={formData.draftAdditionalDocumentName}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-            <div className="w-5/12"></div>
+
             <div className="w-5/12">
-              <label htmlFor="documentDescription" className="mr-2 w-1/4">
-                Document Description
+              <label htmlFor="draftAdditionalDocumentDescription" className="mr-2 w-1/4">
+                Additional Document Description
               </label>
               <textarea
-                name="documentDescription"
+                name="draftAdditionalDocumentDescription"
                 rows="4"
-                value={formData.documentDescription}
+                value={formData.draftAdditionalDocumentDescription}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>
             </div>
+
             <div className="w-5/12">
-              <label htmlFor="shortDescription" className="mr-2 w-1/4">
-                Short Description
+              <label htmlFor="drafterComments" className="mr-2 w-1/4">
+                Drafter Comments
               </label>
               <textarea
-                name="shortDescription"
+                name="drafterComments"
                 rows="4"
-                value={formData.shortDescription}
+                value={formData.drafterComments}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>
             </div>
+
             <div className="w-full">
               <ScreenCapture />
             </div>
-            <div className="w-full">
+
+            <div className="w-full shadow-2xl p-5 rounded-lg">
               <label htmlFor="" className="mb-11">
                 Edit And Upload Document
               </label>
               <TinyEditor />
             </div>
+
             <div className="w-full flex justify-center">
               <button
                 type="submit"
@@ -262,7 +188,7 @@ export default function InitiatePanel() {
                 onClick={handleOpen}
               >
                 <IoSendOutline className="mr-2 h-4 w-4" />
-                Send for Review
+                Send for Execution
               </button>
             </div>
           </div>
