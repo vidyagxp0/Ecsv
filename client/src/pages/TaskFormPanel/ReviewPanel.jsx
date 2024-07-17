@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoSendOutline } from "react-icons/io5";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
-import ScreenCapture from "../temp/ScreenCapture";
+import ScreenCapture from "../../components/ScreenCapture";
 import ProgressBar from "../../components/ProgressBar";
 import ESignatureModal from "../../components/ESignatureModal";
 import TinyEditor from "../../components/TinyEditor";
@@ -16,18 +16,20 @@ export default function ReviewPanel() {
   const forms = useSelector((state) => state.form.forms);
 
   const formToEdit = forms.find((form) => form.id === parseInt(id));
-  const today = new Date().toLocaleDateString();
+  // const today = new Date().toLocaleDateString();
 
   const [stage, setStage] = useState(1);
+
   const [formData, setFormData] = useState(
     formToEdit || {
-      initiatorName: "Gaurav Meena",
-      initiationDate: today,
+      currentStatus: "",
+      initiatorName: "",
+      initiationDate: "",
       reviewer: "",
+      reviewDate: "",
       revieweradditionalDocumentName: "",
       revieweradditionalDocumentDescription: "",
       reviewerComments: "",
-      // Add other fields here as needed
     }
   );
 
@@ -37,9 +39,13 @@ export default function ReviewPanel() {
   const handleClose = () => setOpen(false);
 
   const handleSubmit = () => {
-    dispatch(updateForm(formData));
+    const updatedFormData = {
+      ...formData,
+      currentStatus: "Draft",
+    };
+    dispatch(updateForm(updatedFormData));
     setStage(2);
-    navigate("/draft-task");
+    navigate("/draft/" + id);
   };
 
   const handleChange = (e) => {
@@ -52,14 +58,14 @@ export default function ReviewPanel() {
   return (
     <>
       <Header />
-      <ProgressBar stage={stage} />
+      <ProgressBar stage={stage} status={formData.currentStatus} />
 
       <div>
         <div className="px-16 py-12 pt-2 bg-gray-300 min-h-screen">
           <h6 className="text-2xl pt-12 px-16 font-bold bg-white rounded-t-lg text-orange-600">
             Review Task
           </h6>
-          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300 flex gap-6 flex-wrap justify-between">
+          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg flex gap-6 flex-wrap justify-between">
             <div className="w-5/12">
               <label htmlFor="initiatorName" className="mr-2 w-1/4">
                 Initiator Name
@@ -97,6 +103,19 @@ export default function ReviewPanel() {
             </div>
 
             <div className="w-5/12">
+              <label htmlFor="reviewDate" className="mr-2 w-1/4">
+                Review Date
+              </label>
+              <input
+                name="reviewDate"
+                onChange={handleChange}
+                type="date"
+                value={formData.reviewDate}
+                className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+              />
+            </div>
+
+            <div className="w-5/12">
               <label htmlFor="additionalDocumentName" className="mr-2 w-1/4">
                 Additional Document Name
               </label>
@@ -109,6 +128,8 @@ export default function ReviewPanel() {
               />
             </div>
 
+            <div className="w-5/12"></div>
+
             <div className="w-5/12">
               <label htmlFor="revieweradditionalDocumentDescription" className="mr-2 w-1/4">
                 Additional Document Description
@@ -116,7 +137,7 @@ export default function ReviewPanel() {
               <textarea
                 name="revieweradditionalDocumentDescription"
                 rows="4"
-                value={formData.additionalDocumentDescription}
+                value={formData.revieweradditionalDocumentDescription}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>

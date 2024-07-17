@@ -5,30 +5,38 @@ import { useNavigate } from "react-router-dom";
 const stages = ["Initiate", "Review", "Draft", "Execute", "Approve"];
 
 const ProgressBar = (props) => {
-  const { stage = 0 } = props;
+  const { stage, status } = props;
   useEffect(() => {
     setCurrentStage(stage);
   }, [stage]);
+  useEffect(() => {
+    // setCurrentStage(stage);
+    // console.log(props);
+    moveToStage(status);
+  }, [status]);
   const [currentStage, setCurrentStage] = useState(0);
   const navigate = useNavigate();
 
-  const moveToStage = (index, stage) => {
-    // setCurrentStage(index);
-    switch (stage) {
+  const moveToStage = (status) => {
+    switch (status) {
       case "Initiate":
-        navigate("/initiate-task");
+        // navigate("/initiate-task");
+        setCurrentStage(0);
         break;
       case "Review":
-        navigate("/review-task");
+        setCurrentStage(1);
         break;
       case "Draft":
-        navigate("/draft-task");
+        setCurrentStage(2);
         break;
       case "Execute":
-        navigate("/execute-task");
+        setCurrentStage(3);
         break;
       case "Approve":
-        navigate("/approve-task");
+        setCurrentStage(4);
+        break;
+      case "Approved":
+        setCurrentStage(5);
         break;
       default:
         break;

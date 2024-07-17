@@ -1,42 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { IoSendOutline } from "react-icons/io5";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
-import ScreenCapture from "../temp/ScreenCapture";
-import { FcApprove } from "react-icons/fc";
-import { useNavigate, useParams } from "react-router-dom"; // Import useParams
+import ScreenCapture from "../../components/ScreenCapture";
 import ProgressBar from "../../components/ProgressBar";
 import ESignatureModal from "../../components/ESignatureModal";
 import TinyEditor from "../../components/TinyEditor";
+import { updateForm } from "../../redux/formSlice";
+import { FcApprove } from "react-icons/fc";
 
 export default function ApprovePanel() {
-  const today = new Date().toLocaleDateString();
+  const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const forms = useSelector((state) => state.form.forms);
+
+  const formToEdit = forms.find((form) => form.id === parseInt(id));
+  const today = new Date().toLocaleDateString();
+
+  const [formData, setFormData] = useState(
+    formToEdit || {
+      currentStatus: "",
+      initiatorName: "Gaurav Meena",
+      initiationDate: today,
+      reviewer: "",
+      reviewDate: today,
+      drafter: "",
+      draftDate: today,
+      executor: "",
+      executeDate: today,
+      approver: "",
+      approveDate: today,
+      approverAdditionalDocumentName: "",
+      approverAdditionalDocumentDescription: "",
+      approverComments: "",
+      // Add other fields here as needed
+    }
+  );
+
   const [open, setOpen] = useState(false);
-  const { id } = useParams(); // Use useParams to get route parameters
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const handleSubmit = () => {
+    const updatedFormData = {
+      ...formData,
+      currentStatus: "Approved",
+    };
+
+    dispatch(updateForm(updatedFormData));
     navigate("/dashboard");
   };
-
-  // Example state to manage form data
-  const [formData, setFormData] = useState({
-    initiatorName: "Gaurav Meena",
-    initiationDate: today,
-    reviewerName: "",
-    reviewDate: today,
-    drafterName: "",
-    draftDate: today,
-    executorName: "",
-    executeDate: today,
-    approverName: "",
-    approveDate: today,
-    additionalDocumentName: "",
-    additionalDocumentDescription: "",
-    approverComments: "",
-    // Add more fields as needed
-  });
 
   const handleChange = (e) => {
     setFormData({
@@ -48,7 +64,7 @@ export default function ApprovePanel() {
   return (
     <>
       <Header />
-      <ProgressBar stage={4} />
+      <ProgressBar stage={4} status={formData.currentStatus} />
 
       <div>
         <div className="px-16 py-12 pt-2 bg-gray-300 min-h-screen">
@@ -67,7 +83,6 @@ export default function ApprovePanel() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-
             <div className="w-5/12">
               <label htmlFor="initiationDate" className="mr-2 w-1/4">
                 Initiation Date
@@ -81,17 +96,16 @@ export default function ApprovePanel() {
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="reviewerName" className="mr-2 w-1/4">
+              <label htmlFor="reviewer" className="mr-2 w-1/4">
                 Reviewer Name
               </label>
               <input
                 disabled
                 type="text"
-                value={formData.reviewerName}
+                value={formData.reviewer}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-
             <div className="w-5/12">
               <label htmlFor="reviewDate" className="mr-2 w-1/4">
                 Review Date
@@ -105,17 +119,16 @@ export default function ApprovePanel() {
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="drafterName" className="mr-2 w-1/4">
+              <label htmlFor="drafter" className="mr-2 w-1/4">
                 Drafter Name
               </label>
               <input
                 disabled
                 type="text"
-                value={formData.drafterName}
+                value={formData.drafter}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-
             <div className="w-5/12">
               <label htmlFor="draftDate" className="mr-2 w-1/4">
                 Draft Date
@@ -129,17 +142,16 @@ export default function ApprovePanel() {
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="executorName" className="mr-2 w-1/4">
+              <label htmlFor="executor" className="mr-2 w-1/4">
                 Executor Name
               </label>
               <input
                 disabled
                 type="text"
-                value={formData.executorName}
+                value={formData.executor}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-
             <div className="w-5/12">
               <label htmlFor="executeDate" className="mr-2 w-1/4">
                 Execute Date
@@ -153,64 +165,52 @@ export default function ApprovePanel() {
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="approverName" className="mr-2 w-1/4">
+              <label htmlFor="approver" className="mr-2 w-1/4">
                 Approver Name
               </label>
               <input
                 disabled
                 type="text"
-                value={formData.approverName}
+                value={formData.approver}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-
             <div className="w-5/12">
               <label htmlFor="approveDate" className="mr-2 w-1/4">
                 Approve Date
               </label>
               <input
-                disabled
-                type="text"
+                name="approveDate"
+                type="date"
+                onChange={handleChange}
                 value={formData.approveDate}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-
-            <div className="w-5/12 ">
-              <label className="w-1/2 mr-2">Upload Additional Document</label>
-              <input
-                type="file"
-                accept=".pdf"
-                className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2 mt-0"
-              />
-            </div>
-
             <div className="w-5/12">
-              <label htmlFor="additionalDocumentName" className="mr-2 w-1/4">
+              <label htmlFor="approverAdditionalDocumentName" className="mr-2 w-1/4">
                 Additional Document Name
               </label>
               <input
-                name="additionalDocumentName"
+                name="approverAdditionalDocumentName"
                 type="text"
-                value={formData.additionalDocumentName}
+                value={formData.approverAdditionalDocumentName}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-
             <div className="w-5/12">
-              <label htmlFor="additionalDocumentDescription" className="mr-2 w-1/4">
+              <label htmlFor="approverAdditionalDocumentDescription" className="mr-2 w-1/4">
                 Additional Document Description
               </label>
               <textarea
-                name="additionalDocumentDescription"
+                name="approverAdditionalDocumentDescription"
                 rows="4"
-                value={formData.additionalDocumentDescription}
+                value={formData.approverAdditionalDocumentDescription}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>
             </div>
-
             <div className="w-5/12">
               <label htmlFor="approverComments" className="mr-2 w-1/4">
                 Approver Comments
@@ -223,7 +223,6 @@ export default function ApprovePanel() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>
             </div>
-
             <div className="w-full">
               <ScreenCapture />
             </div>
@@ -241,8 +240,8 @@ export default function ApprovePanel() {
                 className="bg-green-800 text-white px-6 py-4 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center w-1/4 justify-center"
                 onClick={handleOpen}
               >
-                <IoSendOutline className="mr-2 h-4 w-4" />
-                Send for Approval
+                <FcApprove className="mr-2 h-4 w-4" />
+                Approval
               </button>
             </div>
           </div>

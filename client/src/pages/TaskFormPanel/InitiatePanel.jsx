@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoSendOutline } from "react-icons/io5";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
-import ScreenCapture from "../temp/ScreenCapture";
+import ScreenCapture from "../../components/ScreenCapture";
 import ProgressBar from "../../components/ProgressBar";
 import ESignatureModal from "../../components/ESignatureModal";
 import TinyEditor from "../../components/TinyEditor";
@@ -21,6 +21,7 @@ export default function InitiatePanel() {
   const [stage, setStage] = useState(0);
   const [formData, setFormData] = useState(
     formToEdit || {
+      currentStatus: "",
       id: Date.now(),
       initiatorName: "Gaurav Meena",
       initiationDate: today,
@@ -29,6 +30,7 @@ export default function InitiatePanel() {
       drafter: "",
       executor: "",
       documentName: "",
+      taskName: "",
       documentDescription: "",
       shortDescription: "",
     }
@@ -41,13 +43,19 @@ export default function InitiatePanel() {
   const handleClose = () => setOpen(false);
 
   const handleSubmit = () => {
+    const updatedFormData = {
+      ...formData,
+      currentStatus: "Review",
+    };
+
     if (formToEdit) {
-      dispatch(updateForm(formData));
+      dispatch(updateForm(updatedFormData));
     } else {
-      dispatch(addForm(formData));
+      dispatch(addForm(updatedFormData));
     }
+
     setStage(1);
-    navigate(`/review/${formData.id}`);
+    navigate(`/review/${updatedFormData.id}`);
   };
 
   const handleChange = (e) => {
@@ -60,7 +68,7 @@ export default function InitiatePanel() {
   return (
     <>
       <Header />
-      <ProgressBar stage={stage} />
+      <ProgressBar stage={stage} status={formData.currentStatus} />
       <div>
         <div className="px-16 py-12 pt-2 bg-gray-300 min-h-screen">
           <h6 className="text-2xl pt-12 px-16 font-bold bg-white rounded-t-lg text-orange-600">
@@ -221,7 +229,18 @@ export default function InitiatePanel() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
-            <div className="w-5/12"></div>
+            <div className="w-5/12">
+              <label htmlFor="taskName" className="mr-2 w-1/4">
+                Name of Task
+              </label>
+              <input
+                name="taskName"
+                type="text"
+                value={formData.taskName}
+                onChange={handleChange}
+                className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
+              />
+            </div>
             <div className="w-5/12">
               <label htmlFor="documentDescription" className="mr-2 w-1/4">
                 Document Description

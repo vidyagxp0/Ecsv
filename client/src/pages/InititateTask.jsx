@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import { IoSendOutline } from "react-icons/io5";
 import { FcApprove } from "react-icons/fc";
-import ScreenCapture from "./temp/ScreenCapture";
+import ScreenCapture from "../components/ScreenCapture";
 import ProgressBar from "../components/ProgressBar";
 
 export default function InititateTask() {

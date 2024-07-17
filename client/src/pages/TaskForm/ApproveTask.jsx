@@ -1,6 +1,6 @@
 import { IoSendOutline } from "react-icons/io5";
 import Header from "../../components/Header";
-import ScreenCapture from "../temp/ScreenCapture";
+import ScreenCapture from "../../components/ScreenCapture";
 import { FcApprove } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/ProgressBar";

@@ -45,7 +45,7 @@ export default function BottomHeader() {
         </NavLink>
       </nav>
       <button
-        onClick={() => navigate("/initiate-task")}
+        onClick={() => navigate("/initiate")}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-9 flex items-center gap-2"
       >
         New Task <FaPen />

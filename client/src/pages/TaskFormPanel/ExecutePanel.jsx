@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoSendOutline } from "react-icons/io5";
 import Header from "../../components/Header";
-import ScreenCapture from "../temp/ScreenCapture";
+import ScreenCapture from "../../components/ScreenCapture";
 import { useNavigate, useParams } from "react-router-dom";
 import ProgressBar from "../../components/ProgressBar";
 import ESignatureModal from "../../components/ESignatureModal";
@@ -22,16 +22,17 @@ export default function ExecutePanel() {
 
   const [formData, setFormData] = useState(
     formToEdit || {
+      currentStatus: "",
       initiatorName: "Gaurav Meena",
       initiationDate: today,
-      reviewerName: "Pankaj Jat",
+      reviewer: "",
       reviewDate: today,
-      drafterName: "My Jat",
+      drafter: "",
       draftDate: today,
-      executorName: "My Jat",
+      executor: "",
       executeDate: today,
-      additionalDocumentName: "",
-      additionalDocumentDescription: "",
+      executorAdditionalDocumentName: "",
+      executorAdditionalDocumentDescription: "",
       executorComments: "",
       // Add other fields here as needed
     }
@@ -41,8 +42,12 @@ export default function ExecutePanel() {
   const handleClose = () => setOpen(false);
 
   const handleSubmit = () => {
-    dispatch(updateForm(formData));
-    navigate("/approve-task");
+    const updatedFormData = {
+      ...formData,
+      currentStatus: "Approve",
+    };
+    dispatch(updateForm(updatedFormData));
+    navigate("/approve/" + id);
   };
 
   const handleChange = (e) => {
@@ -55,7 +60,7 @@ export default function ExecutePanel() {
   return (
     <>
       <Header />
-      <ProgressBar stage={3} />
+      <ProgressBar stage={3} status={formData.currentStatus} />
       <div>
         <div className="px-16 py-12 pt-2 bg-gray-300 min-h-screen">
           <h6 className="text-2xl pt-12 px-16 font-bold bg-white rounded-t-lg text-orange-600">
@@ -87,13 +92,13 @@ export default function ExecutePanel() {
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="reviewerName" className="mr-2 w-1/4">
+              <label htmlFor="reviewer" className="mr-2 w-1/4">
                 Reviewer Name
               </label>
               <input
                 disabled
                 type="text"
-                value={formData.reviewerName}
+                value={formData.reviewer}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
@@ -111,13 +116,13 @@ export default function ExecutePanel() {
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="drafterName" className="mr-2 w-1/4">
+              <label htmlFor="drafter" className="mr-2 w-1/4">
                 Drafter Name
               </label>
               <input
                 disabled
                 type="text"
-                value={formData.drafterName}
+                value={formData.drafter}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
@@ -135,13 +140,13 @@ export default function ExecutePanel() {
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="executorName" className="mr-2 w-1/4">
+              <label htmlFor="executor" className="mr-2 w-1/4">
                 Executor Name
               </label>
               <input
                 disabled
                 type="text"
-                value={formData.executorName}
+                value={formData.executor}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
@@ -151,8 +156,9 @@ export default function ExecutePanel() {
                 Execute Date
               </label>
               <input
-                disabled
-                type="text"
+                name="executeDate"
+                type="date"
+                onChange={handleChange}
                 value={formData.executeDate}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
@@ -169,26 +175,26 @@ export default function ExecutePanel() {
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="additionalDocumentName" className="mr-2 w-1/4">
+              <label htmlFor="executorAdditionalDocumentName" className="mr-2 w-1/4">
                 Additional Document Name
               </label>
               <input
-                name="additionalDocumentName"
+                name="executorAdditionalDocumentName"
                 type="text"
-                value={formData.additionalDocumentName}
+                value={formData.executorAdditionalDocumentName}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />
             </div>
 
             <div className="w-5/12">
-              <label htmlFor="additionalDocumentDescription" className="mr-2 w-1/4">
+              <label htmlFor="executorAdditionalDocumentDescription" className="mr-2 w-1/4">
                 Additional Document Description
               </label>
               <textarea
-                name="additionalDocumentDescription"
+                name="executorAdditionalDocumentDescription"
                 rows="4"
-                value={formData.additionalDocumentDescription}
+                value={formData.executorAdditionalDocumentDescription}
                 onChange={handleChange}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>

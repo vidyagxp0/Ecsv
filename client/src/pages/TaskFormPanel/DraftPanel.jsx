@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoSendOutline } from "react-icons/io5";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
-import ScreenCapture from "../temp/ScreenCapture";
+import ScreenCapture from "../../components/ScreenCapture";
 import ProgressBar from "../../components/ProgressBar";
 import ESignatureModal from "../../components/ESignatureModal";
 import TinyEditor from "../../components/TinyEditor";
@@ -20,11 +20,12 @@ export default function DraftPanel() {
 
   const [formData, setFormData] = useState(
     formToEdit || {
+      currentStatus: "",
       initiatorName: "Gaurav Meena",
       initiationDate: today,
       reviewer: "Pankaj Jat",
       reviewDate: today,
-      drafterName: "My Jat",
+      drafterName: "",
       draftDate: today,
       draftAdditionalDocumentName: "",
       draftAdditionalDocumentDescription: "",
@@ -39,8 +40,12 @@ export default function DraftPanel() {
   const handleClose = () => setOpen(false);
 
   const handleSubmit = () => {
-    dispatch(updateForm(formData));
-    navigate("/execute-task");
+    const updatedFormData = {
+      ...formData,
+      currentStatus: "Execute",
+    };
+    dispatch(updateForm(updatedFormData));
+    navigate("/execute/" + id);
   };
 
   const handleChange = (e) => {
@@ -53,14 +58,14 @@ export default function DraftPanel() {
   return (
     <>
       <Header />
-      <ProgressBar stage={2} />
+      <ProgressBar stage={2} status={formData.currentStatus} />
 
       <div>
         <div className="px-16 py-12 pt-2 bg-gray-300 min-h-screen">
           <h6 className="text-2xl pt-12 px-16 font-bold bg-white rounded-t-lg text-orange-600">
             Draft Task
           </h6>
-          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg bg-gray-300 flex gap-6 flex-wrap justify-between">
+          <div className="px-16 py-12 bg-white shadow-lg rounded-b-lg  flex gap-6 flex-wrap justify-between">
             <div className="w-5/12">
               <label htmlFor="initiatorName" className="mr-2 w-1/4">
                 Initiator Name
@@ -124,8 +129,9 @@ export default function DraftPanel() {
                 Draft Date
               </label>
               <input
-                disabled
-                type="text"
+                name="draftDate"
+                onChange={handleChange}
+                type="date"
                 value={formData.draftDate}
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               />

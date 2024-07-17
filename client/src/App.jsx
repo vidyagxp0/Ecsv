@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import InititateTask from "./pages/InititateTask";
 import PdfUploader from "./pages/temp/PdfUploader";
-import ScreenCapture from "./pages/temp/ScreenCapture";
+import ScreenCapture from "./components/ScreenCapture";
 import WordUploader from "./pages/temp/WordUploader";
 import Screenshot from "./pages/temp/ScreenShot";
 import InitiateTaskIni from "./pages/TaskForm/InitiateTaskIni";
@@ -42,6 +42,7 @@ function App() {
           <Route exact path="/execute-task" element={<ExecuteTask />} />
           <Route exact path="/approve-task" element={<ApproveTask />} />
           <Route path="/edit/:id" element={<EditView />} />
+          <Route path="/initiate" element={<InitiatePanel />} />
           <Route path="/initiate/:id" element={<InitiatePanel />} />
           <Route path="/review/:id" element={<ReviewPanel />} />
           <Route path="/draft/:id" element={<DraftPanel />} />
