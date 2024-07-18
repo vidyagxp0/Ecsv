@@ -30,6 +30,7 @@ export default function DraftPanel() {
       draftAdditionalDocumentName: "",
       draftAdditionalDocumentDescription: "",
       drafterComments: "",
+      tinyContent: "",
       // Add other fields here as needed
     }
   );
@@ -55,6 +56,13 @@ export default function DraftPanel() {
     });
   };
 
+  const editorContentFunction = (content) => {
+    setFormData({
+      ...formData,
+      tinyContent: content,
+    });
+    // console.log("content", content);
+  };
   return (
     <>
       <Header />
@@ -184,7 +192,10 @@ export default function DraftPanel() {
               <label htmlFor="" className="mb-11">
                 Edit And Upload Document
               </label>
-              <TinyEditor />
+              <TinyEditor
+                editorContentFunction={editorContentFunction}
+                tinyContent={formData.tinyContent}
+              />
             </div>
 
             <div className="w-full flex justify-center">

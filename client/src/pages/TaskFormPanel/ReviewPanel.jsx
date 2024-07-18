@@ -30,6 +30,7 @@ export default function ReviewPanel() {
       revieweradditionalDocumentName: "",
       revieweradditionalDocumentDescription: "",
       reviewerComments: "",
+      tinyContent: "",
     }
   );
 
@@ -55,6 +56,13 @@ export default function ReviewPanel() {
     });
   };
 
+  const editorContentFunction = (content) => {
+    setFormData({
+      ...formData,
+      tinyContent: content,
+    });
+    // console.log("content", content);
+  };
   return (
     <>
       <Header />
@@ -164,7 +172,10 @@ export default function ReviewPanel() {
               <label htmlFor="" className="mb-11">
                 Edit And Upload Document
               </label>
-              <TinyEditor />
+              <TinyEditor
+                editorContentFunction={editorContentFunction}
+                tinyContent={formData.tinyContent}
+              />
             </div>
 
             <div className="w-full flex justify-center">

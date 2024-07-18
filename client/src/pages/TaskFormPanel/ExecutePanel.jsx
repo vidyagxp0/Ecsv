@@ -34,7 +34,7 @@ export default function ExecutePanel() {
       executorAdditionalDocumentName: "",
       executorAdditionalDocumentDescription: "",
       executorComments: "",
-      // Add other fields here as needed
+      tinyContent: "",
     }
   );
 
@@ -57,6 +57,13 @@ export default function ExecutePanel() {
     });
   };
 
+  const editorContentFunction = (content) => {
+    setFormData({
+      ...formData,
+      tinyContent: content,
+    });
+    // console.log("content", content);
+  };
   return (
     <>
       <Header />
@@ -221,7 +228,10 @@ export default function ExecutePanel() {
               <label htmlFor="" className="mb-11">
                 Edit And Upload Document
               </label>
-              <TinyEditor />
+              <TinyEditor
+                editorContentFunction={editorContentFunction}
+                tinyContent={formData.tinyContent}
+              />{" "}
             </div>
 
             <div className="w-full flex justify-center">

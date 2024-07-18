@@ -35,6 +35,7 @@ export default function ApprovePanel() {
       approverAdditionalDocumentName: "",
       approverAdditionalDocumentDescription: "",
       approverComments: "",
+      tinyContent: "",
       // Add other fields here as needed
     }
   );
@@ -61,6 +62,12 @@ export default function ApprovePanel() {
     });
   };
 
+  const editorContentFunction = (content) => {
+    setFormData({
+      ...formData,
+      tinyContent: content,
+    });
+  };
   return (
     <>
       <Header />
@@ -231,7 +238,10 @@ export default function ApprovePanel() {
               <label htmlFor="" className="mb-11">
                 Edit And Upload Document
               </label>
-              <TinyEditor />
+              <TinyEditor
+                editorContentFunction={editorContentFunction}
+                tinyContent={formData.tinyContent}
+              />
             </div>
 
             <div className="w-full flex justify-center">

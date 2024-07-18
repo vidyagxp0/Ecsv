@@ -33,6 +33,7 @@ export default function InitiatePanel() {
       taskName: "",
       documentDescription: "",
       shortDescription: "",
+      tinyContent: "",
     }
   );
 
@@ -53,7 +54,7 @@ export default function InitiatePanel() {
     } else {
       dispatch(addForm(updatedFormData));
     }
-
+    // console.log(updatedFormData);
     setStage(1);
     navigate(`/review/${updatedFormData.id}`);
   };
@@ -65,6 +66,13 @@ export default function InitiatePanel() {
     });
   };
 
+  const editorContentFunction = (content) => {
+    setFormData({
+      ...formData,
+      tinyContent: content,
+    });
+    // console.log("content", content);
+  };
   return (
     <>
       <Header />
@@ -272,7 +280,7 @@ export default function InitiatePanel() {
               <label htmlFor="" className="mb-11">
                 Edit And Upload Document
               </label>
-              <TinyEditor />
+              <TinyEditor editorContentFunction={editorContentFunction} />
             </div>
             <div className="w-full flex justify-center">
               <button

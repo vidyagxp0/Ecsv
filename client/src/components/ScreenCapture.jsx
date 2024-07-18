@@ -22,7 +22,7 @@ const ScreenCapture = () => {
 
       const imgData = canvas.toDataURL();
       setImageSrc(imgData);
-
+      // console.log(imgData);
       track.stop();
     } catch (error) {
       console.error("Error capturing screen:", error);
@@ -36,7 +36,7 @@ const ScreenCapture = () => {
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full px-7"
       >
         Capture Screen
-      </button> 
+      </button>
       {imageSrc && <img src={imageSrc} width="100%" alt="Captured screen" />}
     </div>
   );

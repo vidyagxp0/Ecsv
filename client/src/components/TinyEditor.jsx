@@ -1,5 +1,5 @@
 import { Editor } from "@tinymce/tinymce-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import mammoth from "mammoth";
 import htmlToPdfmake from "html-to-pdfmake";
 import pdfMake from "pdfmake/build/pdfmake";
@@ -7,16 +7,24 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-export default function TinyEditor() {
+export default function TinyEditor({ tinyContent, editorContentFunction }) {
   const editorRef = useRef(null);
-  const [editorContent, setEditorContent] = useState("");
+  const [editorContent, setEditorContent] = useState(tinyContent);
 
+  useEffect(() => {
+    editorContentFunction(editorContent);
+  }, [editorContent]);
+  // useEffect(() => {
+  //   console.log();
+  //   setEditorContent(formData);
+  // }, [formData]);
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const arrayBuffer = await file.arrayBuffer();
       const result = await mammoth.convertToHtml({ arrayBuffer });
       setEditorContent(result.value);
+      // console.log("editorContent" , editorContent);
     }
   };
 
