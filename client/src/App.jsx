@@ -26,6 +26,7 @@ import ReviewPanel from "./pages/TaskFormPanel/ReviewPanel";
 import DraftPanel from "./pages/TaskFormPanel/DraftPanel";
 import ExecutePanel from "./pages/TaskFormPanel/ExecutePanel";
 import ApprovePanel from "./pages/TaskFormPanel/ApprovePanel";
+import OQForm from "./pages/temp/OQForm";
 function App() {
   return (
     <>
@@ -59,6 +60,7 @@ function App() {
           <Route exact path="/tiptap" element={<Tiptap />} />
           <Route exact path="/tiny" element={<TinyMCE />} />
           <Route exact path="/tinydemo" element={<TinyDemo />} />
+          <Route exact path="/oq-form" element={<OQForm />} />
         </Routes>
       </Router>
     </>
