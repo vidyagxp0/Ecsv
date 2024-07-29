@@ -27,6 +27,7 @@ import DraftPanel from "./pages/TaskFormPanel/DraftPanel";
 import ExecutePanel from "./pages/TaskFormPanel/ExecutePanel";
 import ApprovePanel from "./pages/TaskFormPanel/ApprovePanel";
 import OQForm from "./pages/temp/OQForm";
+import OqSteps from "./pages/temp/OqSteps";
 function App() {
   return (
     <>
@@ -61,6 +62,7 @@ function App() {
           <Route exact path="/tiny" element={<TinyMCE />} />
           <Route exact path="/tinydemo" element={<TinyDemo />} />
           <Route exact path="/oq-form" element={<OQForm />} />
+          <Route exact path="/oq-steps" element={<OqSteps />} />
         </Routes>
       </Router>
     </>
