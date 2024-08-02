@@ -5,7 +5,6 @@ import "./index.css";
 import CreateAccount from "./pages/Login/CreateAccount";
 import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
-import InititateTask from "./pages/InititateTask";
 import PdfUploader from "./pages/temp/PdfUploader";
 import ScreenCapture from "./components/ScreenCapture";
 import WordUploader from "./pages/temp/WordUploader";
@@ -16,7 +15,6 @@ import DraftTask from "./pages/TaskForm/DraftTask";
 import ExecuteTask from "./pages/TaskForm/ExecuteTask";
 import ApproveTask from "./pages/TaskForm/ApproveTask";
 import FileEditor from "./pages/temp/JoditEditor";
-import FileEditor2 from "./pages/temp/AypryseEditor";
 import Tiptap from "./pages/temp/Tiptap";
 import TinyMCE from "./pages/temp/TinyMCE";
 import TinyDemo from "./pages/temp/TinyDemo";
@@ -57,7 +55,6 @@ function App() {
           <Route exact path="/ssc" element={<ScreenCapture />} />
           <Route exact path="/word" element={<WordUploader />} />
           <Route exact path="/file" element={<FileEditor />} />
-          <Route exact path="/file2" element={<FileEditor2 />} />
           <Route exact path="/tiptap" element={<Tiptap />} />
           <Route exact path="/tiny" element={<TinyMCE />} />
           <Route exact path="/tinydemo" element={<TinyDemo />} />

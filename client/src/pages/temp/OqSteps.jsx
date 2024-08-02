@@ -21,13 +21,13 @@ export default function OqSteps() {
   return (
     <>
       <Header />
-      <div className="flex bg-white justify-between px-20 pb-10">
+      <div className="flex bg-white justify-between items-center px-20 pb-10">
         <h6 className="text-3xl pt-12 px-16 font-bold bg-white rounded-t-lg text-orange-600">
           Create new OQ
         </h6>
         <button
           onClick={addStep}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 h-10"
         >
           Add Step
         </button>
@@ -88,16 +88,32 @@ export default function OqSteps() {
                   className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
                 />
               </div>
-              <div className="w-5/12">
+              <div className="w-full flex flex-col items-center">
                 <ScreenCapture onCapture={(imgData) => updateStepImage(index, imgData)} />
-                {step.imgData.map((img, imgIndex) => (
+                <div className="flex items-center  justify-evenly gap-10 flex-wrap pt-5">
+                  {step.imgData.length > 0 ? (
+                    step.imgData.map((img, imgIndex) => (
+                      <img
+                        key={imgIndex}
+                        src={img}
+                        alt={`Step ${index + 1} - Capture ${imgIndex + 1}`}
+                        className="w-5/12 object-cover shadow-xl"
+                      />
+                    ))
+                  ) : (
+                    <div className="text-center font-semibold text-red-700">
+                      <p>No image Captured Till Now</p>
+                    </div>
+                  )}
+                </div>
+                {/* {step.imgData.map((img, imgIndex) => (
                   <img
                     key={imgIndex}
                     src={img}
                     alt={`Step ${index + 1} - Capture ${imgIndex + 1}`}
                     className="mt-10"
                   />
-                ))}
+                ))} */}
               </div>
             </div>
           </div>

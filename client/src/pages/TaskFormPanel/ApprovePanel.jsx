@@ -237,8 +237,8 @@
                 ></textarea>
               </div>
               <div className="w-full">
-                {/* <ScreenCapture /> */}
-                <ScreenCapture onCapture={(imgData) => addSS(imgData)} />
+                <ScreenCapture />
+                {/* <ScreenCapture onCapture={(imgData) => addSS(imgData)} /> */}
                 {imgData.map((img, imgIndex) => (
                   <img
                     key={imgIndex}

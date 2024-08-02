@@ -19,6 +19,7 @@ export default function InitiatePanel() {
 
   const today = new Date().toLocaleDateString();
   const [stage, setStage] = useState(0);
+  const [imgData, setImgData] = useState([]);
   const [formData, setFormData] = useState(
     formToEdit || {
       currentStatus: "",
@@ -72,6 +73,10 @@ export default function InitiatePanel() {
       tinyContent: content,
     });
     // console.log("content", content);
+  };
+  const updateStepImage = (newImgData) => {
+    console.log("newImgData", newImgData);
+    setImgData([...imgData, newImgData]);
   };
   return (
     <>
@@ -273,16 +278,40 @@ export default function InitiatePanel() {
                 className="bg-gray-50 border border-gray-500 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mt-0"
               ></textarea>
             </div>
-            <div className="w-full">
-              <ScreenCapture />
+            <div className="w-full flex flex-col items-center">
+              <ScreenCapture onCapture={(imgData) => updateStepImage(imgData)} />
+              <div className="flex items-center  justify-evenly gap-10 flex-wrap pt-5">
+                {imgData.length > 0 ? (
+                  imgData.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      alt="img"
+                      className="w-5/12 object-cover shadow-xl"
+                    />
+                  ))
+                ) : (
+                  <div className="text-center font-semibold text-red-700">
+                    <p>No image Captured Till Now</p>
+                  </div>
+                )}
+              </div>
             </div>
+
             <div className="w-full">
               <label htmlFor="" className="mb-11">
                 Edit And Upload Document
               </label>
               <TinyEditor editorContentFunction={editorContentFunction} />
             </div>
-            <div className="w-full flex justify-center">
+            <div className="w-full flex justify-center gap-10">
+              <button
+                className="bg-indigo-500 text-white px-6 py-4 rounded-lg focus:outline-none hover:bg-indigo-600 transition duration-150 ease-in-out flex items-center w-1/4 justify-center"
+                onClick={() => navigate("/oq-form")}
+              >
+                Create OQ
+              </button>
+
               <button
                 type="submit"
                 className="bg-green-800 text-white px-6 py-4 rounded-lg focus:outline-none hover:bg-green-600 transition duration-150 ease-in-out flex items-center w-1/4 justify-center"

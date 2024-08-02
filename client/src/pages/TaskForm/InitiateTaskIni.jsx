@@ -277,7 +277,9 @@ export default function InitiateTaskIni() {
       [e.target.name]: e.target.value,
     });
   };
-
+  const updateStepImage = (newImgData) => {
+    console.log("newImgData", newImgData);
+  };
   return (
     <>
       <Header />
@@ -461,7 +463,9 @@ export default function InitiateTaskIni() {
               ></textarea>
             </div>
             <div className="w-full">
-              <ScreenCapture />
+              {/* <ScreenCapture onCapture={updateStepImage} /> */}
+
+              {/* <ScreenCapture onCapture={(imgData) => updateStepImage(imgData)} /> */}
             </div>
             <div className="w-full">
               <label htmlFor="" className="mb-11">

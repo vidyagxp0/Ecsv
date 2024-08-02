@@ -63,7 +63,7 @@
 
 // export default ScreenCapture;
 
-import React from "react";
+// import React from "react";
 
 const ScreenCapture = ({ onCapture }) => {
   const captureScreen = async () => {
@@ -93,7 +93,7 @@ const ScreenCapture = ({ onCapture }) => {
   return (
     <button
       onClick={captureScreen}
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 1/4"
     >
       Capture Screen
     </button>
