@@ -22,7 +22,7 @@ export default function Header() {
     <div className="bg-white h-12 w-auto shadow-2xl flex justify-between items-center px-8 pr-20">
       <div className="flex gap-4">
         <img
-          src="./vidyaGxp_logo.png"
+          src="https://connexo.io/assets/img/logo/logo.png"
           alt=""
           className="h-12 cursor-pointer"
           onClick={() => navigate("/dashboard")}

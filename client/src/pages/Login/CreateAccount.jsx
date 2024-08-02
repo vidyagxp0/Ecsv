@@ -22,7 +22,7 @@ export default function CreateAccount() {
         className="px-8 py-6 mt-4 text-left bg-white shadow-lg rounded-lg
         max-w-md w-full"
       >
-        <img src="./vidyaGxp_logo.png" alt="" />
+        <img src="https://connexo.io/assets/img/logo/logo.png" alt="" />
         <h3 className="text-2xl font-bold text-gray-800 mb-4">Create New Account</h3>
         <form onSubmit={handleSubmit}>
           <label
