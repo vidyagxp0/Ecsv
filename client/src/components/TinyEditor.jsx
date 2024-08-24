@@ -73,12 +73,13 @@ export default function TinyEditor({ tinyContent, editorContentFunction }) {
       </div>
       <div className="my-4">
         <Editor
-          apiKey="5vbh0y1nq5y6uokc071mjvy9n4fnss5ctasrjft7x7ajm9fl"
+          // apiKey="5vbh0y1nq5y6uokc071mjvy9n4fnss5ctasrjft7x7ajm9fl"
+          apiKey="6lgqyc4wcm89pj8427e8vcfs7nmu7d3t7hk7692ipn5lazye"
           onInit={(_evt, editor) => (editorRef.current = editor)}
           value={editorContent}
           onEditorChange={(newValue) => setEditorContent(newValue)}
           init={{
-            height: 500,
+            height: 400,
             menubar: false,
             plugins: [
               "advlist",
