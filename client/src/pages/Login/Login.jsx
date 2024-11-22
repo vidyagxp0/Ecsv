@@ -4,11 +4,18 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    if (email === "Amit@vidyagxp.com" && password === "1") {
+      setError(""); 
+      navigate("/dashboard");
+    } else {
+      setError("Invalid email or password. Please try again."); 
+    }
   };
 
   return (
@@ -53,8 +60,10 @@ export default function Login() {
             className="bg-gray-50 border border-gray-300 text-gray-900
             sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
+          {error && (
+            <p className="text-red-500 text-sm mt-2">{error}</p>
+          )}
           <button
-            onClick={() => navigate("/dashboard")}
             type="submit"
             className="w-full mt-6 px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
           >
